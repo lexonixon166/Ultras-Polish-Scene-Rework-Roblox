@@ -22,17 +22,13 @@ button {
     display:none;
     margin-top:20px;
 }
-textarea, input {
-    width:80%;
-    padding:10px;
-    margin:5px;
-}
 .post {
     background:#222;
     margin:10px auto;
     padding:10px;
     width:80%;
     border-radius:5px;
+    text-align:left;
 }
 a.link-btn {
     display:block;
@@ -45,27 +41,17 @@ a.link-btn {
     font-weight:bold;
     border-radius:5px;
 }
-a.link-btn:hover {
-    background:#ffa726;
-}
 </style>
 </head>
 <body>
 
 <h1>Ultras Polish Scene | Rework</h1>
 
-<div id="loginBox">
-<input type="password" id="adminPass" placeholder="Hasło admina">
-<button onclick="login()">Zaloguj</button>
-</div>
-
-<br>
-
 <button onclick="show('onas')">O nas</button>
 <button onclick="show('discord')">Discord</button>
-<button onclick="show('update')">Aktualizacje</button>
-<button onclick="show('sneak')">Sneak Peeks</button>
-<button onclick="show('announce')">Ogłoszenia</button>
+<button onclick="show('ann')">Ogłoszenia</button>
+<button onclick="show('upd')">Aktualizacje</button>
+<button onclick="show('sne')">Sneak Peeks</button>
 <button onclick="show('links')">Linki</button>
 
 <!-- O NAS -->
@@ -73,7 +59,7 @@ a.link-btn:hover {
 <h2>O nas</h2>
 <p>
 Ultras Polish Scene | Rework to projekt gry tworzony z pasją,
-nastawiony na klimat stadionowy, eventy i rozwój społeczności.
+nastawiony na klimat stadionowy, eventy oraz społeczność.
 </p>
 </div>
 
@@ -85,55 +71,57 @@ nastawiony na klimat stadionowy, eventy i rozwój społeczności.
 </a>
 </div>
 
-<!-- AKTUALIZACJE -->
-<div id="update" class="tab">
-<h2>Aktualizacje</h2>
+<!-- OGŁOSZENIA -->
+<div id="ann" class="tab">
+<h2>Ogłoszenia</h2>
 
-<div id="adminUpdate" style="display:none;">
-<textarea id="updateText" placeholder="Napisz aktualizację..."></textarea><br>
-<button onclick="addUpdate()">Dodaj aktualizację</button>
+<div class="post">
+<b>[2026-01-30]</b><br>
+Witajcie na naszej stronie internetowej!
 </div>
 
-<div id="updates"></div>
+<!-- ⬇️ TU DODAJESZ NOWE OGŁOSZENIA ⬇️ -->
+
+</div>
+
+<!-- AKTUALIZACJE -->
+<div id="upd" class="tab">
+<h2>Aktualizacje</h2>
+
+<div class="post">
+<b>v0.0</b><br>
+Po wyjściu gry.
+</div>
+
+<!-- ⬇️ TU DODAJESZ NOWE AKTUALIZACJE ⬇️ -->
+
 </div>
 
 <!-- SNEAK PEEKS -->
-<div id="sneak" class="tab">
+<div id="sne" class="tab">
 <h2>Sneak Peeks</h2>
 
-<div id="adminSneak" style="display:none;">
-<textarea id="sneakText" placeholder="Napisz sneak peek..."></textarea><br>
-<button onclick="addSneak()">Dodaj sneak peek</button>
+<div class="post">
+SOON 🔥
 </div>
 
-<div id="sneaks"></div>
-</div>
+<!-- ⬇️ TU DODAJESZ NOWE SNEAK PEEKI ⬇️ -->
 
-<!-- OGŁOSZENIA -->
-<div id="announce" class="tab">
-<h2>Ogłoszenia</h2>
-
-<div id="adminAnnounce" style="display:none;">
-<textarea id="announceText" placeholder="Napisz ogłoszenie..."></textarea><br>
-<button onclick="addAnnounce()">Dodaj ogłoszenie</button>
-</div>
-
-<div id="announces"></div>
 </div>
 
 <!-- LINKI -->
 <div id="links" class="tab">
 <h2>Linki</h2>
 
-<a href="https://www.roblox.com/games/TWOJ_LINK_DO_GRY" target="_blank" class="link-btn">
+<a href="https://www.roblox.com/games/TWOJ_LINK" target="_blank" class="link-btn">
 🎮 Gra – Kibicowanie (Roblox)
 </a>
 
-<a href="https://www.roblox.com/groups/TWOJ_LINK_DO_GRUPY" target="_blank" class="link-btn">
+<a href="https://www.roblox.com/groups/TWOJ_LINK" target="_blank" class="link-btn">
 👥 Grupa Roblox
 </a>
 
-<a href="https://www.roblox.com/games/TWOJ_LINK_DO_EVENT_FIELD" target="_blank" class="link-btn">
+<a href="https://www.roblox.com/games/TWOJ_LINK" target="_blank" class="link-btn">
 🏟️ Gra – Event Field
 </a>
 
@@ -145,81 +133,6 @@ function show(id){
     document.getElementById(id).style.display='block';
 }
 show('onas');
-
-/* ===== ADMIN ===== */
-function login(){
-    const password = "Ultraspolishscene2026!"; // ← ZMIEŃ NA SWOJE
-    const input = adminPass.value;
-
-    if(input === password){
-        localStorage.setItem("admin","true");
-        alert("Zalogowano jako admin");
-        checkAdmin();
-    } else {
-        alert("Złe hasło");
-    }
-}
-
-function checkAdmin(){
-    if(localStorage.getItem("admin")==="true"){
-        adminUpdate.style.display="block";
-        adminSneak.style.display="block";
-        adminAnnounce.style.display="block";
-        loginBox.style.display="none";
-    }
-}
-checkAdmin();
-
-/* ===== AKTUALIZACJE ===== */
-function addUpdate(){
-    let t=updateText.value;
-    if(!t) return;
-    let u=JSON.parse(localStorage.getItem("updates")||"[]");
-    u.push(t);
-    localStorage.setItem("updates",JSON.stringify(u));
-    updateText.value="";
-    loadUpdates();
-}
-function loadUpdates(){
-    let u=JSON.parse(localStorage.getItem("updates")||"[]");
-    updates.innerHTML="";
-    u.forEach(x=>updates.innerHTML+=`<div class="post">${x}</div>`);
-}
-loadUpdates();
-
-/* ===== SNEAK PEEKS ===== */
-function addSneak(){
-    let t=sneakText.value;
-    if(!t) return;
-    let s=JSON.parse(localStorage.getItem("sneaks")||"[]");
-    s.push(t);
-    localStorage.setItem("sneaks",JSON.stringify(s));
-    sneakText.value="";
-    loadSneaks();
-}
-function loadSneaks(){
-    let s=JSON.parse(localStorage.getItem("sneaks")||"[]");
-    sneaks.innerHTML="";
-    s.forEach(x=>sneaks.innerHTML+=`<div class="post">${x}</div>`);
-}
-loadSneaks();
-
-/* ===== OGŁOSZENIA ===== */
-function addAnnounce(){
-    let t=announceText.value;
-    if(!t) return;
-    let a=JSON.parse(localStorage.getItem("announces")||"[]");
-    a.push(t);
-    localStorage.setItem("announces",JSON.stringify(a));
-    announceText.value="";
-    loadAnnounces();
-}
-function loadAnnounces(){
-    let a=JSON.parse(localStorage.getItem("announces")||"[]");
-    announces.innerHTML="";
-    a.forEach(x=>announces.innerHTML+=`<div class="post">${x}</div>`);
-}
-loadAnnounces();
 </script>
 
 </body>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Moja Gra</title>
+
+<style>
+body {
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+button {
+    padding:10px;
+    margin:5px;
+    background:orange;
+    border:none;
+}
+.tab {
+    display:none;
+    margin-top:20px;
+}
+textarea {
+    width:80%;
+    padding:10px;
+}
+.post {
+    background:#222;
+    margin:10px auto;
+    padding:10px;
+    width:80%;
+}
+</style>
+</head>
+<body>
+
+<h1>🎮 Ultras Polish Scene 🎮</h1>
+
+<button onclick="show('onas')">O nas</button>
+<button onclick="show('discord')">Discord</button>
+<button onclick="show('update')">Aktualizacje</button>
+<button onclick="show('sneak')">Sneak Peeks</button>
+
+<div id="onas" class="tab">
+<h2>O nas</h2>
+<p>
+Jesteśmy młodą federacją kibicowską na robloxie!
+Gdy wbijesz na nasz discord projekt rozwinie się szybciej!
+</p>
+</div>
+
+<div id="discord" class="tab">
+<h2>Discord</h2>
+<a href="https://discord.gg/5uRvpsyKBe" target="_blank" style="color:orange;font-size:18px;">
+➡️ Dołącz do Discorda
+</a>
+</div>
+
+<div id="update" class="tab">
+<h2>Aktualizacje</h2>
+<textarea id="updateText" placeholder="Napisz aktualizację..."></textarea><br>
+<button onclick="addUpdate()">Dodaj</button>
+<div id="updates"></div>
+</div>
+
+<div id="sneak" class="tab">
+<h2>Sneak Peeks</h2>
+<textarea id="sneakText" placeholder="Napisz przeciek..."></textarea><br>
+<button onclick="addSneak()">Dodaj</button>
+<div id="sneaks"></div>
+</div>
+
+<script>
+function show(id){
+document.querySelectorAll('.tab').forEach(t=>t.style.display='none');
+document.getElementById(id).style.display='block';
+}
+show('onas');
+
+function addUpdate(){
+let t=document.getElementById('updateText').value;
+if(!t) return;
+let u=JSON.parse(localStorage.getItem('updates')||'[]');
+u.push(t);
+localStorage.setItem('updates',JSON.stringify(u));
+document.getElementById('updateText').value='';
+loadUpdates();
+}
+function loadUpdates(){
+let u=JSON.parse(localStorage.getItem('updates')||'[]');
+let box=document.getElementById('updates');
+box.innerHTML='';
+u.forEach(x=>box.innerHTML+=`<div class="post">${x}</div>`);
+}
+loadUpdates();
+
+function addSneak(){
+let t=document.getElementById('sneakText').value;
+if(!t) return;
+let s=JSON.parse(localStorage.getItem('sneaks')||'[]');
+s.push(t);
+localStorage.setItem('sneaks',JSON.stringify(s));
+document.getElementById('sneakText').value='';
+loadSneaks();
+}
+function loadSneaks(){
+let s=JSON.parse(localStorage.getItem('sneaks')||'[]');
+let box=document.getElementById('sneaks');
+box.innerHTML='';
+s.forEach(x=>box.innerHTML+=`<div class="post">${x}</div>`);
+}
+loadSneaks();
+</script>
+
+</body>
+</html>

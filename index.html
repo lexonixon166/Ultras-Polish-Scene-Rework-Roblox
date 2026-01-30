@@ -34,6 +34,20 @@ textarea, input {
     width:80%;
     border-radius:5px;
 }
+a.link-btn {
+    display:block;
+    width:80%;
+    margin:10px auto;
+    padding:12px;
+    background:#ff9800;
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:5px;
+}
+a.link-btn:hover {
+    background:#ffa726;
+}
 </style>
 </head>
 <body>
@@ -51,21 +65,23 @@ textarea, input {
 <button onclick="show('discord')">Discord</button>
 <button onclick="show('update')">Aktualizacje</button>
 <button onclick="show('sneak')">Sneak Peeks</button>
+<button onclick="show('announce')">Ogłoszenia</button>
+<button onclick="show('links')">Linki</button>
 
 <!-- O NAS -->
 <div id="onas" class="tab">
 <h2>O nas</h2>
 <p>
-Ultras Polish Scene | Rework to projekt gry tworzony z pasją,
-nastawiony na realizm, klimat i rozwój wraz ze społecznością.
+Ultras Polish Scene | Rework to najnowsza gra kibicowska na roblox,
+rozwijamy się dość szybko! Czekamy na Ciebie.
 </p>
 </div>
 
 <!-- DISCORD -->
 <div id="discord" class="tab">
 <h2>Discord</h2>
-<a href="https://discord.gg/5uRvpsyKBe" target="_blank" style="color:orange;font-size:18px;">
-➡️ Dołącz do naszego Discorda
+<a href="https://discord.gg/5uRvpsyKBe" target="_blank" class="link-btn">
+➡️ Dołącz do Discorda
 </a>
 </div>
 
@@ -93,6 +109,36 @@ nastawiony na realizm, klimat i rozwój wraz ze społecznością.
 <div id="sneaks"></div>
 </div>
 
+<!-- OGŁOSZENIA -->
+<div id="announce" class="tab">
+<h2>Ogłoszenia</h2>
+
+<div id="adminAnnounce" style="display:none;">
+<textarea id="announceText" placeholder="Napisz ogłoszenie..."></textarea><br>
+<button onclick="addAnnounce()">Dodaj ogłoszenie</button>
+</div>
+
+<div id="announces"></div>
+</div>
+
+<!-- LINKI -->
+<div id="links" class="tab">
+<h2>Linki</h2>
+
+<a href="WKRÓTCE LINK" target="_blank" class="link-btn">
+🎮 Gra – Kibicowanie (Roblox)
+</a>
+
+<a href="WKRÓTCE LINK" target="_blank" class="link-btn">
+👥 Grupa Roblox
+</a>
+
+<a href="WKRÓTCE LINK" target="_blank" class="link-btn">
+🏟️ Gra – Event Field
+</a>
+
+</div>
+
 <script>
 function show(id){
     document.querySelectorAll('.tab').forEach(t=>t.style.display='none');
@@ -100,10 +146,10 @@ function show(id){
 }
 show('onas');
 
-// ===== ADMIN LOGIN =====
+/* ===== ADMIN ===== */
 function login(){
-    const password = "Ultraspolishscene26!"; // ← ZMIEŃ TO
-    const input = document.getElementById("adminPass").value;
+    const password = "Ultraspolishscene26!"; // ← ZMIEŃ NA SWOJE
+    const input = adminPass.value;
 
     if(input === password){
         localStorage.setItem("admin","true");
@@ -116,48 +162,64 @@ function login(){
 
 function checkAdmin(){
     if(localStorage.getItem("admin")==="true"){
-        document.getElementById("adminUpdate").style.display="block";
-        document.getElementById("adminSneak").style.display="block";
-        document.getElementById("loginBox").style.display="none";
+        adminUpdate.style.display="block";
+        adminSneak.style.display="block";
+        adminAnnounce.style.display="block";
+        loginBox.style.display="none";
     }
 }
 checkAdmin();
 
-// ===== AKTUALIZACJE =====
+/* ===== AKTUALIZACJE ===== */
 function addUpdate(){
-    let t=document.getElementById("updateText").value;
+    let t=updateText.value;
     if(!t) return;
     let u=JSON.parse(localStorage.getItem("updates")||"[]");
     u.push(t);
     localStorage.setItem("updates",JSON.stringify(u));
-    document.getElementById("updateText").value="";
+    updateText.value="";
     loadUpdates();
 }
 function loadUpdates(){
     let u=JSON.parse(localStorage.getItem("updates")||"[]");
-    let box=document.getElementById("updates");
-    box.innerHTML="";
-    u.forEach(x=>box.innerHTML+=`<div class="post">${x}</div>`);
+    updates.innerHTML="";
+    u.forEach(x=>updates.innerHTML+=`<div class="post">${x}</div>`);
 }
 loadUpdates();
 
-// ===== SNEAK PEEKS =====
+/* ===== SNEAK PEEKS ===== */
 function addSneak(){
-    let t=document.getElementById("sneakText").value;
+    let t=sneakText.value;
     if(!t) return;
     let s=JSON.parse(localStorage.getItem("sneaks")||"[]");
     s.push(t);
     localStorage.setItem("sneaks",JSON.stringify(s));
-    document.getElementById("sneakText").value="";
+    sneakText.value="";
     loadSneaks();
 }
 function loadSneaks(){
     let s=JSON.parse(localStorage.getItem("sneaks")||"[]");
-    let box=document.getElementById("sneaks");
-    box.innerHTML="";
-    s.forEach(x=>box.innerHTML+=`<div class="post">${x}</div>`);
+    sneaks.innerHTML="";
+    s.forEach(x=>sneaks.innerHTML+=`<div class="post">${x}</div>`);
 }
 loadSneaks();
+
+/* ===== OGŁOSZENIA ===== */
+function addAnnounce(){
+    let t=announceText.value;
+    if(!t) return;
+    let a=JSON.parse(localStorage.getItem("announces")||"[]");
+    a.push(t);
+    localStorage.setItem("announces",JSON.stringify(a));
+    announceText.value="";
+    loadAnnounces();
+}
+function loadAnnounces(){
+    let a=JSON.parse(localStorage.getItem("announces")||"[]");
+    announces.innerHTML="";
+    a.forEach(x=>announces.innerHTML+=`<div class="post">${x}</div>`);
+}
+loadAnnounces();
 </script>
 
 </body>

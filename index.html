@@ -1,153 +1,62 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<title>Ultras Polish Scene | Rework</title>
-
-<style>
-body {
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-}
-button {
-    padding:10px;
-    margin:5px;
-    background:orange;
-    border:none;
-    cursor:pointer;
-}
-.tab {
-    display:none;
-    margin-top:20px;
-}
-.post {
-    background:#222;
-    margin:10px auto;
-    padding:10px;
-    width:80%;
-    border-radius:5px;
-    text-align:left;
-}
-a.link-btn {
-    display:block;
-    width:80%;
-    margin:10px auto;
-    padding:12px;
-    background:#ff9800;
-    color:black;
-    text-decoration:none;
-    font-weight:bold;
-    border-radius:5px;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Liga Piłkarska</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Ultras Polish Scene | Rework</h1>
+<header>
+    <h1>⚽ Liga Piłkarska</h1>
+    <p>Oficjalna strona ligi</p>
+</header>
 
-<button onclick="show('onas')">O nas</button>
-<button onclick="show('discord')">Discord</button>
-<button onclick="show('ann')">Ogłoszenia</button>
-<button onclick="show('upd')">Aktualizacje</button>
-<button onclick="show('sne')">Sneak Peeks</button>
-<button onclick="show('links')">Linki</button>
+<nav>
+    <button onclick="show('terminarz')">Terminarz</button>
+    <button onclick="show('wyniki')">Wyniki</button>
+    <button onclick="show('aktualnosci')">Aktualności</button>
+    <button onclick="show('wykluczenia')">Wykluczenia</button>
+</nav>
 
-<!-- O NAS -->
-<div id="onas" class="tab">
-<h2>O nas</h2>
-<p>
-Ultras Polish Scene | Rework to jedna z nowszych gier kibcowskich na roblox.
-Premiera gry event field już jest niedługo gra do kibicowania! Liczymy na Ciebie.
-</p>
-</div>
+<div class="container">
 
-<!-- DISCORD -->
-<div id="discord" class="tab">
-<h2>Discord</h2>
-<a href="https://discord.gg/5uRvpsyKBe" target="_blank" class="link-btn">
-➡️ Dołącz do Discorda
-</a>
-</div>
+    <div id="terminarz" class="section active">
+        <h2>📅 Terminarz</h2>
+        <ul>
+            <li>FC Warszawa vs FC Kraków</li>
+            <li>FC Gdańsk vs FC Wrocław</li>
+            <li>FC Poznań vs FC Łódź</li>
+        </ul>
+    </div>
 
-<!-- OGŁOSZENIA -->
-<div id="ann" class="tab">
-<h2>Ogłoszenia</h2>
+    <div id="wyniki" class="section">
+        <h2>🏆 Wyniki</h2>
+        <ul>
+            <li>FC Warszawa 3:1 FC Kraków</li>
+            <li>FC Gdańsk 0:0 FC Wrocław</li>
+        </ul>
+    </div>
 
-<div class="post">
-<b>[2026-01-30]</b><br>
-Witajcie na naszej stronie internetowej!
-</div>
+    <div id="aktualnosci" class="section">
+        <h2>📰 Aktualności</h2>
+        <ul>
+            <li>Start nowego sezonu ligi!</li>
+            <li>Nowy transfer w FC Warszawa</li>
+            <li>Zmiany w VAR</li>
+        </ul>
+    </div>
 
-<div class="post">
-<b>[2026-01-30]</b><br>
-Gra startuje już niedługo!
-</div>
-
- <div class="post">
-<b>[2026-01-31]</b><br>
-Event Field już jest!
-</div>
-
-<!-- ⬇️ TU DODAJESZ NOWE OGŁOSZENIA ⬇️ -->
-
-<div class="post">
-<b>[2026-01-30]</b><br>
-Na 50 osób na naszym serwerze discord podania do administracji! Brakuje niewiele!
-</div>
-
-<!-- AKTUALIZACJE -->
-<div id="upd" class="tab">
-<h2>Aktualizacje</h2>
-
-<div class="post">
-<b>v0.0</b><br>
-Po wyjściu gry.
-</div>
-
-<!-- ⬇️ TU DODAJESZ NOWE AKTUALIZACJE ⬇️ -->
+    <div id="wykluczenia" class="section">
+        <h2>🚫 Wykluczenia</h2>
+        <ul>
+            <li>Jan Kowalski – 2 mecze (czerwona kartka)</li>
+            <li>FC Łódź – ostrzeżenie</li>
+        </ul>
+    </div>
 
 </div>
 
-<!-- SNEAK PEEKS -->
-<div id="sne" class="tab">
-<h2>Sneak Peeks</h2>
-
-<div class="post">
-SOON 🔥
-</div>
-
-<!-- ⬇️ TU DODAJESZ NOWE SNEAK PEEKI ⬇️ -->
-
-</div>
-
-<!-- LINKI -->
-<div id="links" class="tab">
-<h2>Linki</h2>
-
-<a href="https://www.roblox.com/games/TWOJ_LINK" target="_blank" class="link-btn">
-🎮 Gra – Kibicowanie (Roblox)
-</a>
-
-<a href="https://www.roblox.com/groups/TWOJ_LINK" target="_blank" class="link-btn">
-👥 Grupa Roblox
-</a>
-
-<a href="https://www.roblox.com/groups/TWOJ_LINK" target="_blank" class="link-btn">
-🏟️ Gra – Event Field
-</a>
-
-</div>
-
-<script>
-function show(id){
-    document.querySelectorAll('.tab').forEach(t=>t.style.display='none');
-    document.getElementById(id).style.display='block';
-}
-show('onas');
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
-
